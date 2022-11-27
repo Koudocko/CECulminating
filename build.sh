@@ -1,0 +1,6 @@
+#!/bin/sh
+
+echo Building...
+arduino-cli compile --fqbn arduino:avr:uno Culminating
+echo Uploading...
+arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno
