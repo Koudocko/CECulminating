@@ -184,4 +184,3 @@ void loop() {
 		wallLast = millis(), playerLast = millis();
 	}
 }
-
