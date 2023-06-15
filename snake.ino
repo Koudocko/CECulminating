@@ -94,7 +94,7 @@ int snake(){
 					++score;
 
 					++len;
-					body = realloc(body, sizeof(int[2]) * len);
+					body = (int(*)[2])realloc(body, sizeof(int[2]) * len);
 					memcpy(body[len - 1], tail, sizeof(int[2]));
 				}
 				else{

@@ -1,4 +1,4 @@
-int matrix[8][8];
+bool matrix[8][8]{};
 
 Direction joystickEvent(){
 	static unsigned long last{};
