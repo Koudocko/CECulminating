@@ -3,19 +3,8 @@
 #include "snake.h"
 #include "lib.h"
 
-class Object{
-	int (*positions)[2];
-	int size;
-
-public:
-		Object(int size, int (*positions)[2]) 
-			: size{size}, positions{positions}{}
-};
-
 constexpr int rowPins[8]{ 8, 7, 6, 5, 4, 3, 2, 1 }, 
 	colPins[8]{ A3, A4, A5, 13, 12, 11, 10, 9 };
-
-Object** objects{};
 
 constexpr short numbers[10][15]
 {
