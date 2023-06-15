@@ -41,7 +41,6 @@ void setup() {
 	pinMode(A1, 0);
 	pinMode(A2, INPUT_PULLUP);
 
-	randomSeed(analogRead(0));
 }
 
 void clear(){
@@ -130,7 +129,7 @@ void loop(){
 		}
 	};
 	constexpr static int (*games[])(){ snake, zelda, hole };
-	int static gameIdx{1};
+	int static gameIdx{0};
 
 	switch (joystickEvent()){
 		case Direction::LEFT:
