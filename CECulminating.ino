@@ -1,6 +1,7 @@
 #include "zelda.h"
 #include "hole.h"
 #include "snake.h"
+#include "lib.h"
 
 class Object{
 	int (*positions)[2];
@@ -14,10 +15,7 @@ public:
 constexpr int rowPins[8]{ 8, 7, 6, 5, 4, 3, 2, 1 }, 
 	colPins[8]{ A3, A4, A5, 13, 12, 11, 10, 9 };
 
-int matrix[8][8];
 Object** objects{};
-
-enum Direction{ UP, LEFT, DOWN, RIGHT, NONE };
 
 constexpr short numbers[10][15]
 {
@@ -32,11 +30,6 @@ constexpr short numbers[10][15]
 	{ 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1 }, 
 	{ 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1 }
 }; 
-
-unsigned long playerLast, playerSpeed{250}, score;
-
-unsigned long wallLast, wallSpeed{1000};
-short wallPos, wallDir{random(4)};
 
 void setup() {
 	for (int i = 0; i < 8; ++i){
@@ -77,7 +70,7 @@ void screenAnimation(){
 			unsigned long start{millis()}; 
 
 			matrix[i][j] = 1;
-			while ((millis()-start) < 25) 
+			while ((millis() - start) < 25) 
 				update();
 		}
 	}
@@ -86,45 +79,16 @@ void screenAnimation(){
 			unsigned long start{millis()}; 
 
 			matrix[i][j] = 0;
-			while ((millis()-start) < 25) 
+			while ((millis() - start) < 25) 
 				update();
 		}
 	}
-}
-
-Direction joystickEvent(){
-	if (analogRead(A0) >= 895){ 
-		return Direction::RIGHT;
-	}
-	else if (analogRead(A0) <= 128){ 
-		return Direction::LEFT;
-	}    
-	else if (analogRead(A1) >= 895){ 
-		return Direction::DOWN;
-	}
-	else if (analogRead(A1) <= 128){ 
-		return Direction::UP;
-	}
-
-	return Direction::NONE;
-}
-
-bool buttonEvent(){
-	static unsigned long last{};
-
-	if ((millis() - last) >= 100 && !digitalRead(A2)){
-		last = millis();
-		return true;
-	}
-
-	return false;
 }
 
 void menuAnimation(bool img[4][4]){
 	static unsigned long last{};
 	static bool state{};
 	
-	clear();
 	matrix[0][0] = state; matrix[0][1] = state; matrix[1][0] = state;
 	matrix[0][6] = state; matrix[0][7] = state; matrix[1][7] = state;
 	matrix[6][0] = state; matrix[7][0] = state; matrix[7][1] = state;
@@ -159,7 +123,7 @@ void loop(){
 			{ true, true, false, false },
 		}
 	};
-	constexpr void (*games[])(){ snake, zelda };
+	constexpr int (*games[])(){ snake, zelda };
 	int gameIdx{};
 
 	switch (joystickEvent()){
@@ -173,8 +137,12 @@ void loop(){
 			break;
 	}
 
-	if (buttonEvent())
-		games[gameIdx]();
+	if (buttonEvent()){
+		clear();
+
+		int score = games[gameIdx]();
+		screenAnimation();
+	}
 
 	menuAnimation(gameLogos[gameIdx]);
 }

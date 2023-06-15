@@ -1,6 +1,6 @@
 #ifndef ZELDA
 #define ZELDA
 
-void zelda();
+int zelda();
 
 #endif

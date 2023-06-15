@@ -1,6 +1,6 @@
 #ifndef SNAKE
 #define SNAKE
 
-void snake();
+int snake();
 
 #endif
