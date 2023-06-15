@@ -15,15 +15,15 @@ int zelda(){
 	bool attacking{};
 
 	while (1){
-		if (!len){
-			int len = random(1, 4);
-			enemies = (Enemy*)malloc(sizeof(Enemy[len]));
+		/* if (!len){ */
+		/* 	int len = random(1, 4); */
+		/* 	enemies = (Enemy*)malloc(sizeof(Enemy[len])); */
 
-			for (int i = 0; i < len; ++i){
-				enemies[i].x = random(8);
-				enemies[i].y = random(8);
-			}
-		}	
+		/* 	for (int i = 0; i < len; ++i){ */
+		/* 		enemies[i].x = random(8); */
+		/* 		enemies[i].y = random(8); */
+		/* 	} */
+		/* } */	
 
 		if (millis() - playerLast >= playerSpeed && !attacking){
 			switch (joystickEvent()){
@@ -173,7 +173,7 @@ int zelda(){
 		}
 
 		for (int i = 0; i < len; ++i)
-			matrix[enemies[i].y][enemies.[i].x] = 1;
+			matrix[enemies[i].y][enemies[i].x] = 1;
 
 		if (!hp)
 			break;
