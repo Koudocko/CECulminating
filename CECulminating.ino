@@ -29,7 +29,6 @@ void setup() {
 	pinMode(A0, 0);
 	pinMode(A1, 0);
 	pinMode(A2, INPUT_PULLUP);
-
 }
 
 void clear(){

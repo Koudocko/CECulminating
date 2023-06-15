@@ -13,9 +13,11 @@ int* generateFruit(){
 				areas[len - 1][0] = i * 8 + j;
 				areas[len - 1][1] = 0;
 			}
-			else if (matrix && !last){
+			else if (matrix[i][j] && !last){
 				areas[len - 1][1] = i * 8 + j - 1;
 			}
+
+			last = matrix[i][j];
 		}
 	}
 
@@ -43,6 +45,7 @@ int snake(){
 		if (!fruit){
 			fruit = generateFruit();
 			matrix[fruit[1]][fruit[0]] = 1;
+			/* Serial.println(String("fruit generated: x - ") + fruit[0] + String(", y - ") + fruit[1]); */
 		}
 
 		update();
@@ -87,6 +90,8 @@ int snake(){
 				break;
 
 			if (matrix[y][x]){
+				/* Serial.println(String("player: x - ") + x + String(", y - ") + y); */
+				/* Serial.println(String("fruit: x - ") + fruit[0] + String(", y - ") + fruit[1]); */
 				if (fruit && fruit[0] == x && fruit[1] == y){
 					matrix[fruit[1]][fruit[0]] = 0;
 					free(fruit);
@@ -109,6 +114,7 @@ int snake(){
 		update();
 	}
 
+	/* Serial.println("HEH"); */
 	free(body);
 	if (fruit) free(fruit);
 	return score;

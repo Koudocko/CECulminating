@@ -11,24 +11,28 @@ int hole(){
 		if ((millis() - playerLast) >= playerSpeed){ 
 			switch (joystickEvent()){
 				case Direction::UP:
-					if (y > 0) 
+					if (y > 0){
 						matrix[y][x] = 0;
 						--y; playerLast = millis();
+					}
 					break;
 				case Direction::DOWN:
-					if (y < 7) 
+					if (y < 7){
 						matrix[y][x] = 0;
 						++y; playerLast = millis(); 
+					}
 					break;
 				case Direction::RIGHT:
-					if (x < 7) 
+					if (x < 7){
 						matrix[y][x] = 0;
 						++x; playerLast = millis(); 
+					}
 					break;
 				case Direction::LEFT:
-					if (x > 0) 
+					if (x > 0){
 						matrix[y][x] = 0;
 						--x; playerLast = millis(); 
+					}
 					break;
 			}
 		}
@@ -69,4 +73,6 @@ int hole(){
 		update();
 		matrix[y][x] = 0;
 	}
+
+	return score;
 }
