@@ -65,6 +65,9 @@ int snake(){
 				matrix[body[i][0]][body[i][1]] = 1;
 			
 			int x = body[0][0], y = body[1][1];
+			if (x < 0 || x > 7 || y < 0 || y > 7)
+				break;
+
 			if (matrix[x][y]){
 				if (fruit && fruit[0] == x && fruit[1] == y){
 					matrix[fruit[0]][fruit[1]] = 0;

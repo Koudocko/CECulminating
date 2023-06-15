@@ -1,6 +1,6 @@
 #ifndef HOLE
 #define HOLE
 
-int holeInTheWall();
+int hole();
 
 #endif

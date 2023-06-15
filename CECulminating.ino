@@ -108,7 +108,7 @@ void menuAnimation(bool img[4][4]){
 }
 
 void loop(){
-	constexpr bool gameLogos[][4][4]
+	constexpr static bool gameLogos[][4][4]
 	{
 		{
 			{ true, true, true, true },
@@ -121,10 +121,16 @@ void loop(){
 			{ false, false, true, false },
 			{ true, true, false, false },
 			{ true, true, false, false },
+		},
+		{
+			{ false, false, false, true },
+			{ false, false, false, true },
+			{ true, false, false, false },
+			{ false, false, false, true },
 		}
 	};
-	constexpr int (*games[])(){ snake, zelda };
-	int gameIdx{};
+	constexpr static int (*games[])(){ snake, zelda, hole };
+	int static gameIdx{1};
 
 	switch (joystickEvent()){
 		case Direction::LEFT:
@@ -138,9 +144,33 @@ void loop(){
 	}
 
 	if (buttonEvent()){
-		clear();
-
+		screenAnimation();
 		int score = games[gameIdx]();
+		screenAnimation();
+
+		for (int i = 0; i < 15; ++i)
+			matrix[i / 3][(i % 3)] = numbers[score / 10][i]; 
+		for (int i = 0; i < 15; ++i)
+			matrix[i / 3][(i % 3) + 5] = numbers[score % 10][i]; 
+
+		int last{};
+		do{
+			if (millis() - last >= 750){
+				if (!matrix[6][3]){
+					matrix[6][3] = 1, matrix[6][4] = 1;
+					matrix[7][3] = 1, matrix[7][4] = 1;
+				}
+				else{
+					matrix[6][3] = 0, matrix[6][4] = 0;
+					matrix[7][3] = 0, matrix[7][4] = 0;
+				}
+
+				last = millis();
+			}
+
+			update();
+		} while (!buttonEvent());
+
 		screenAnimation();
 	}
 
